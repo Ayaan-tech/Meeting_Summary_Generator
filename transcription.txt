@@ -1,2 +1,2 @@
- Hello and Ramsha and today I would like to talk about how I used Whisper mic for speech to text transcription. Whisper mic basically used Whisper from OpenAI for transcription of spoken language into the text. It provides a simple interface for capturing the audio input from the microphone and converting it into the text. Thank you.
-
+ WikiV psychopath
+ Mral AI offers franting AI models for developers and businesses with open source cloud and on-premise options learn how to use customized and optimized Mral 7B.

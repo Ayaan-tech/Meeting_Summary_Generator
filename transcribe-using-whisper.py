@@ -4,7 +4,11 @@ import time
 import keyboard
 
 warnings.filterwarnings("ignore", message="FP16 is not supported on CPU; using FP32 instead")
-
+warnings.filterwarnings(
+    "ignore",
+    category=FutureWarning,
+    message="You are using `torch.load` with `weights_only=False`.*"
+)
 mic = WhisperMic()
 transcription_file = "transcription.txt"
 stop_key = "q"  # You can change this to any key you want to use to stop recording
