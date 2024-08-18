@@ -1,1 +1,9 @@
 whisper_mic
+torch
+keyboard
+langchain-huggingface
+huggingface_hub
+transformers
+accelerate
+bitsandbytes
+langchain
