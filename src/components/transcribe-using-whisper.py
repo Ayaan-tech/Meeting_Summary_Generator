@@ -10,7 +10,7 @@ warnings.filterwarnings(
     message="You are using `torch.load` with `weights_only=False`.*"
 )
 mic = WhisperMic()
-transcription_file = "transcription.txt"
+transcription_file = "artifacts/generated_transcription.txt"
 stop_key = "q"  # You can change this to any key you want to use to stop recording
 
 print(f"Recording... Press '{stop_key}' to stop and save the transcription.")
@@ -27,7 +27,9 @@ try:
                 file.flush()  # Ensure the result is immediately written to the file
                 print(result)
                 print("Appended transcription to transcription.txt")
+    # Exiting and stopping the mic recording after the loop
+    mic.stop()  # Stops the microphone
 except Exception as e:
-    print(f"Error occured: {e}")
+    print(f"Error occurred: {e}")
 finally:
     print(f"Transcription saved to {transcription_file}. Exiting and closing file.")
