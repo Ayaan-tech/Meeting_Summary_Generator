@@ -1,14 +1,16 @@
+import requests
 from huggingface_hub import login
 from langchain_huggingface import HuggingFaceEndpoint
 import logging
+import time
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Constants
-HF_TOKEN = "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"
-REPO_ID = "mistralai/Mistral-7B-Instruct-v0.2"
+HF_TOKEN = "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"
+REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 
 # Function to read text from a .txt file
 def read_text_file(file_path):
@@ -24,6 +26,7 @@ def save_summary_to_file(summary, output_file):
 def count_words(text):
     words = text.split()  # Split the text into words
     return len(words)
+
 # Function to generate summary
 def generate_summary(text):
     # Login to Hugging Face
@@ -37,19 +40,30 @@ def generate_summary(text):
     # Create the prompt for the model
     prompt = f"You are a summarizer assistant. Generate a summary of the following meeting transcript without including the original text: {text}"
     
-    # Generate the summary
-    logger.info("Generating summary...")
-    result = llm.invoke(prompt)
-    return result
+    # Attempt to generate the summary with error handling
+    retries = 0
+    while True:
+        try:
+            logger.info("Generating summary...")
+            result = llm.invoke(prompt)
+            return result
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 429:  # Rate limit error
+                retries += 1
+                wait_time = min(60 * (2 ** retries), 300)  # Wait up to 5 minutes
+                logger.warning(f"Rate limit reached. Waiting for {wait_time} seconds before retrying...")
+                time.sleep(wait_time)  # Exponential backoff
+            else:
+                logger.error("An error occurred: %s", e)
+                raise
 
 # Example usage
 if __name__ == "__main__":
-    
     file_path = "artifacts/generated_transcription.txt"  
     text = read_text_file(file_path)
 
     # Generate and print the summary
     summary = generate_summary(text)
     print("Summary:", summary)
-    print("Length of summary:",count_words(summary))
+    print("Length of summary:", count_words(summary))
     save_summary_to_file(summary, "artifacts/generated_summary.txt")
