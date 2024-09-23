@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Constants
-HF_TOKEN = "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"
+HF_TOKEN = ""
 REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 
 # Function to read text from a .txt file
