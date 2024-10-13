@@ -36,34 +36,31 @@ def generate_summary(text):
     prompt = system_prompt + user_prompt
 
     retries = 0
-    while True:
-        try:
-            logger.info("Generating summary, agenda, and resolution...")
-            result = llm.invoke(prompt)
-            
-            # Parse the output to separate agenda, summary, and resolution
-            agenda = re.search(r"Agenda:(.*?)(?=Summary:|Resolution:|$)", result, re.DOTALL)
-            summary = re.search(r"Summary:(.*?)(?=Agenda:|Resolution:|$)", result, re.DOTALL)
-            resolution = re.search(r"Resolution:(.*?)(?=Agenda:|Summary:|$)", result, re.DOTALL)
-
-            summary_data = {
-                "agenda": agenda.group(1).strip() if agenda else "Not found",
-                "summary": summary.group(1).strip() if summary else "Not found",
-                "resolution": resolution.group(1).strip() if resolution else "Not found"
-            }
-            
-            save_output_to_file(summary_data)
-            return summary_data
-            
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 429:  # Rate limit error
-                retries += 1
-                wait_time = min(60 * (2 ** retries), 300)  # Wait up to 5 minutes
-                logger.warning(f"Rate limit reached. Waiting for {wait_time} seconds before retrying...")
-                time.sleep(wait_time)  # Exponential backoff
-            else:
-                logger.error("An error occurred: %s", e)
-                raise
+   
+    try:
+        logger.info("Generating summary, agenda, and resolution...")
+        result = llm.invoke(prompt)
+         # Parse the output to separate agenda, summary, and resolution
+        agenda = re.search(r"Agenda:(.*?)(?=Summary:|Resolution:|$)", result, re.DOTALL)
+        summary = re.search(r"Summary:(.*?)(?=Agenda:|Resolution:|$)", result, re.DOTALL)
+        resolution = re.search(r"Resolution:(.*?)(?=Agenda:|Summary:|$)", result, re.DOTALL)
+        summary_data = {
+                    "agenda": agenda.group(1).strip() if agenda else "Not found",
+                    "summary": summary.group(1).strip() if summary else "Not found",
+                    "resolution": resolution.group(1).strip() if resolution else "Not found"
+                }
+        save_output_to_file(summary_data) 
+        return summary_data
+                
+    except requests.exceptions.HTTPError as e:
+                if e.response.status_code == 429:  # Rate limit error
+                    retries += 1
+                    wait_time = min(60 * (2 ** retries), 300)  # Wait up to 5 minutes
+                    logger.warning(f"Rate limit reached. Waiting for {wait_time} seconds before retrying...")
+                    time.sleep(wait_time)  # Exponential backoff
+                else:
+                    logger.error("An error occurred: %s", e)
+                    raise
 
 def save_output_to_file(summary_data):
     """Saves the generated summary data to a text file."""

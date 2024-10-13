@@ -8,3 +8,4 @@ accelerate
 bitsandbytes
 langchain
 fastapi
+python-docx

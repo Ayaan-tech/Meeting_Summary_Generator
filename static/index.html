@@ -27,10 +27,20 @@
             font-size: 2.5em;
         }
 
-        h2 {
-            color: #444;
-            font-size: 1.8em;
-            margin-top: 20px;
+        label {
+            font-size: 1.1em;
+            margin-top: 10px;
+            display: block;
+        }
+
+        input[type="text"], input[type="date"], input[type="time"], input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
         }
 
         button {
@@ -49,7 +59,6 @@
         button:hover {
             background-color: #45a049;
         }
-
         pre {
             background-color: #f4f4f4;
             padding: 15px;
@@ -65,14 +74,39 @@
             min-height: 100px;
             margin-top: 10px;
         }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
     </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Meeting Summarizer</h1>
+
+        <label for="meeting-date">Date of the meeting:</label>
+        <input type="date" id="meeting-date" required>
+
+        <label for="meeting-time">Time of the meeting:</label>
+        <input type="time" id="meeting-time" required>
+
+        <label for="initiator">Who initiated the meeting:</label>
+        <input type="text" id="initiator" required>
+
+        <label for="verifier">Minutes verified by:</label>
+        <input type="text" id="verifier" required>
+
+        <label for="participants">Number of participants:</label>
+        <input type="number" id="participants" required>
+
+        <div>
+            <button onclick="startRecording()">Start Recording</button>
+            <button onclick="stopRecording()">Stop Recording</button>
+            <button onclick="summarizer()">Summarize</button>
+            <button onclick="generateDocument()">Generate Document</button>
+            <h2>Transcription</h2>
+            <pre id="transcription">Transcription will appear here...</pre> 
+        </div>
+    </div>
+
     <script>
-        let transcription = "";
+         let transcription = "";
         let summary = "";
 
         async function startRecording() {
@@ -98,24 +132,34 @@
         function summarizer(){
             window.location.href = '/summary';
         }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <h1>Meeting Summarizer</h1>
-        
-        <div class="button-container">
-            <button onclick="startRecording()">Start Recording</button>
-            <button onclick="stopRecording()">Stop Recording</button>
-            <button onclick="summarizer()">Summarize</button>
-            
-        </div>
+        async function generateDocument() {
+            const meetingDetails = {
+                date: document.getElementById("meeting-date").value,
+                time: document.getElementById("meeting-time").value,
+                initiator: document.getElementById("initiator").value,
+                verifier: document.getElementById("verifier").value,
+                participants: document.getElementById("participants").value
+            };
 
-        <h2>Transcription</h2>
-        <pre id="transcription">Transcription will appear here...</pre> <!-- For displaying transcription -->
-<!-- 
-        <h2>Summary</h2>
-        <pre id="summary">Summary will appear here...</pre> For displaying summary -->
-    </div>
+            const response = await fetch('/generate_document', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(meetingDetails),
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert(result.message);
+                // Trigger download from the new endpoint
+                window.location.href = '/download_document';
+            } 
+            else {
+                const result = await response.json();
+                alert(result.message);
+            }
+        }
+    </script>
 </body>
 </html>

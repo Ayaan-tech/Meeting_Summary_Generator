@@ -1,11 +1,8 @@
 Agenda:
-Discussion on Q4 marketing strategies, focusing on digital campaigns, budget allocation, and content strategy revamp.
-2.
+The main topics or goals discussed in the meeting are project status update and budget review.
 
 Summary:
-The meeting was about evaluating the performance of the last quarter's marketing strategies and proposing adjustments for the upcoming quarter. The main focus was on digital campaigns, specifically social media platforms like Facebook and Instagram, and influencer partnerships. The need for a revamped content strategy, particularly video content, was also noted.
-3.
+The project has completed the initial phase classes and is now entering the development stage. The team has finished the UI design and is waiting for stakeholder feedback. The project will start the development plan by the end of the next week. The budget is within the limits as of now.
 
 Resolution:
-The resolution was to allocate more budget towards digital marketing, specifically social media platforms, and to invest in influencer partnerships. A decision was also made to revamp the content strategy, focusing on video content.
-4. Next Steps: Preparing necessary data for the follow-up meeting and budget allocation.
+The resolution reached at the meeting is to review the designs by Friday and start the development plan by the end of the next week. A further discussion on the budget will occur in the next meeting.
