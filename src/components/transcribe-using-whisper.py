@@ -12,23 +12,20 @@ warnings.filterwarnings(
 mic = WhisperMic()
 transcription_file = "artifacts/generated_transcription.txt"
 stop_key = "q"  # You can change this to any key you want to use to stop recording
-
 print(f"Recording... Press '{stop_key}' to stop and save the transcription.")
 
 try:
     with open(transcription_file, "a") as file:
-        while True:
-            if keyboard.is_pressed(stop_key):
-                print(f"'{stop_key}' pressed. Stopping recording.")
-                break  # Exit the loop if the stop key is pressed
+        if keyboard.is_pressed(stop_key):
+            print(f"'{stop_key}' pressed. Stopping recording.")
+        else:
             result = mic.listen()
-            if result.strip():  # Only write if there's non-empty result
+            if result.strip():  # Only write if there's a non-empty result
                 file.write(result + "\n")
                 file.flush()  # Ensure the result is immediately written to the file
                 print(result)
-                print("Appended transcription to transcription.txt")
-    # Exiting and stopping the mic recording after the loop
-    mic.stop()  # Stops the microphone
+                print("Appended transcription to transcription.txt")  
+   
 except Exception as e:
     print(f"Error occurred: {e}")
 finally:

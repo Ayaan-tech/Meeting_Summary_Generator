@@ -1,4 +1,0 @@
-
- In the first meeting, data collection for energy usage is ongoing without major issues, with 50 homes monitored so far. Anomaly detection testing is progressing well, and a predictive model for energy usage forecasting is set to be integrated by the end of the week. The dashboard will use Plotly for better interactivity.
-
- In the second meeting, updates were given on the skill gap analysis tool. The accuracy has improved by 5%, but further improvements to the user experience are still being worked on. Real-time job market data is also being integrated. The tool's API for pulling job market data is almost complete and should be finalized by the next day. A quick check-in on the data is planned for later in the week. No other updates were provided.
