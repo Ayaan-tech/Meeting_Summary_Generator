@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Summarizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 2.5em;
+        }
+
+        h2 {
+            color: #444;
+            font-size: 1.8em;
+            margin-top: 20px;
+        }
+
+        button {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 5px;
+            white-space: pre-wrap; /* Allow wrapping */
+            word-wrap: break-word;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        #transcription, #summary {
+            min-height: 100px;
+            margin-top: 10px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        let transcription = "";
+        let summary = "";
+
+        async function startRecording() {
+            await fetch('/start_recording', { method: 'POST' });
+            alert("Recording started.");
+        }
+
+        async function stopRecording() {
+            const response = await fetch('/stop_recording', { method: 'POST' });
+            const result = await response.json();
+            transcription = result.transcription;
+            displayTranscription();
+            alert(result.message);
+        }
+
+        async function displayTranscription() {
+            const response = await fetch('/transcription');
+            const data = await response.json();
+            document.getElementById("transcription").innerText = data.transcription.join("\n");
+        
+        }
+        
+        function summarizer(){
+            window.location.href = '/summary';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Meeting Summarizer</h1>
+        
+        <div class="button-container">
+            <button onclick="startRecording()">Start Recording</button>
+            <button onclick="stopRecording()">Stop Recording</button>
+            <button onclick="summarizer()">Summarize</button>
+            
+        </div>
+
+        <h2>Transcription</h2>
+        <pre id="transcription">Transcription will appear here...</pre> <!-- For displaying transcription -->
+<!-- 
+        <h2>Summary</h2>
+        <pre id="summary">Summary will appear here...</pre> For displaying summary -->
+    </div>
+</body>
+</html>
