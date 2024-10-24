@@ -11,6 +11,10 @@ logger = logging.getLogger(__name__)
 
 HF_TOKEN = "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"  # Add your Hugging Face token here
 REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
+def format_as_numbered_list(text):
+    sentences = re.split(r'(?<=[.!?])\s+', text.strip())
+    numbered_sentences = [f"{i+1}) {sentence.strip()}" for i, sentence in enumerate(sentences) if sentence.strip()]
+    return "\n".join(numbered_sentences)
 
 def generate_summary(text):
     logger.info("Logging in to Hugging Face...")
@@ -40,24 +44,23 @@ def generate_summary(text):
     try:
         logger.info("Generating summary, agenda, and resolution...")
         result = llm.invoke(prompt)
-         # Parse the output to separate agenda, summary, and resolution
         agenda = re.search(r"Agenda:(.*?)(?=Summary:|Resolution:|$)", result, re.DOTALL)
         summary = re.search(r"Summary:(.*?)(?=Agenda:|Resolution:|$)", result, re.DOTALL)
         resolution = re.search(r"Resolution:(.*?)(?=Agenda:|Summary:|$)", result, re.DOTALL)
         summary_data = {
-                    "agenda": agenda.group(1).strip() if agenda else "Not found",
-                    "summary": summary.group(1).strip() if summary else "Not found",
-                    "resolution": resolution.group(1).strip() if resolution else "Not found"
+                    "agenda": format_as_numbered_list(agenda.group(1).strip()) if agenda else "Not found",
+                    "summary": format_as_numbered_list(summary.group(1).strip()) if summary else "Not found",
+                    "resolution": format_as_numbered_list(resolution.group(1).strip()) if resolution else "Not found"
                 }
         save_output_to_file(summary_data) 
         return summary_data
                 
     except requests.exceptions.HTTPError as e:
-                if e.response.status_code == 429:  # Rate limit error
+                if e.response.status_code == 429: 
                     retries += 1
-                    wait_time = min(60 * (2 ** retries), 300)  # Wait up to 5 minutes
+                    wait_time = min(60 * (2 ** retries), 300) 
                     logger.warning(f"Rate limit reached. Waiting for {wait_time} seconds before retrying...")
-                    time.sleep(wait_time)  # Exponential backoff
+                    time.sleep(wait_time)  
                 else:
                     logger.error("An error occurred: %s", e)
                     raise

@@ -5,7 +5,6 @@ from recorder import Recorder
 from summarizer import generate_summary
 from docx import Document
 
-# FastAPI app instance
 app = FastAPI()
 
 # Mount the static files directory to serve HTML
@@ -35,8 +34,6 @@ async def generate_summary_task():
     agenda = result['agenda']
     summary = result['summary']
     resolution = result['resolution']
-
-    # Save the generated HTML content to a file woh yaaha se generate hora hai in short maiii 
     html_content = f"""
 <html>
 <head>
