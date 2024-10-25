@@ -106,20 +106,21 @@
     </div>
 
     <script>
-         let transcription = "";
+        let transcription = "";
         let summary = "";
-
         async function startRecording() {
+            alert("Recording Started!!")
             await fetch('/start_recording', { method: 'POST' });
-            alert("Recording started.");
+            
         }
 
         async function stopRecording() {
+            alert("Recording Stopped!!");
             const response = await fetch('/stop_recording', { method: 'POST' });
             const result = await response.json();
             transcription = result.transcription;
             displayTranscription();
-            alert(result.message);
+            alert(result.message)
         }
 
         async function displayTranscription() {

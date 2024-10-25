@@ -1,4 +1,3 @@
-# recorder.py
 import os
 from whisper_mic import WhisperMic
 import warnings
@@ -18,7 +17,7 @@ class Recorder:
     def start_recording(self):
         print("Recording started...")
         with open(self.transcription_file, "a") as file:
-           
+
             result = self.mic.listen()
             if result.strip():  # Only write if there's a non-empty result
                 file.write(result + "\n")

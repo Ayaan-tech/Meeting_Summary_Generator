@@ -1,10 +1,12 @@
 Agenda:
-1) Discussion of Q4 marketing strategies based on photo performance, allocation of budget towards digital campaigns, social media platforms, influencer partnerships, revamping content strategy, and preparing data for budget allocation.
+1) The agenda of the meeting included discussing the project status, next steps, providing feedback on final mockups, and addressing the need for additional testing resources.
 
 Summary:
-1) The meeting discussed the need to shift focus towards digital marketing strategies for Q4, due to the poor results from traditional methods.
-2) The team proposed investing more in social media platforms, influencer partnerships, and video content.
-3) The meeting also noted the need to revamp the content strategy and prepare data for the next meeting.
+1) The team made progress on the front end of the project, completing the login and dashboard screens.
+2) They are aiming to finish the user settings by next week.
+3) The backend team integrated the new API but encountered issues, aiming for a stable release by the end of the sprint.
+4) The design team needs feedback on the final mockups by Thursday.
+5) Additional testing resources will be required next week, and options are being explored.
 
 Resolution:
-1) The resolution reached was to focus more on digital campaigns, allocate more budget towards social media platforms like Facebook and Instagram, invest in influencer partnerships, revamp the content strategy, and prepare necessary data for the follow-up meeting to finalize a budget allocation.
+1) No explicit resolutions were mentioned in the meeting, but the team agreed to continue their efforts and regroup on Monday for further updates.

@@ -22,7 +22,7 @@ async def start_recording():
 async def stop_recording(background_tasks: BackgroundTasks):
     recorder.stop_recording()
     background_tasks.add_task(generate_summary_task)
-    return {"message": "Recording stopped. Generating summary...", "transcription": recorder.get_transcriptions()}
+    return {"message": "Generated Transcriptions and Summary!!", "transcription": recorder.get_transcriptions()}
 
 async def generate_summary_task():
     # Read the transcription text
