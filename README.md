@@ -23,7 +23,7 @@ A smart tool to automate the transcription, summarization, and documentation of 
 1. Clone the repository:
     ```bash
     git clone https://github.com/Khan-Ramsha/MeetSummarizer.git
-    cd meeting-summarizer
+    cd MeetSummarizer
     ```
 
 2. Install dependencies:
