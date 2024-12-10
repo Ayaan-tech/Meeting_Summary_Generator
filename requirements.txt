@@ -10,3 +10,4 @@ langchain
 fastapi
 python-docx
 uvicorn
+pymongo

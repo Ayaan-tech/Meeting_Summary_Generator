@@ -9,7 +9,7 @@ import time
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-HF_TOKEN = "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"  # Add your Hugging Face token here
+HF_TOKEN = "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"  # adding token
 REPO_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 def format_as_numbered_list(text):
     sentences = re.split(r'(?<=[.!?])\s+', text.strip())

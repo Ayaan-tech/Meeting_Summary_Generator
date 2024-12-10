@@ -4,8 +4,12 @@ from fastapi.staticfiles import StaticFiles
 from recorder import Recorder
 from summarizer import generate_summary
 from docx import Document
+from datetime import datetime
+from database import save_meeting_data
 
 app = FastAPI()
+
+# os.makedirs("artifacts", exist_ok=True)
 
 # Mount the static files directory to serve HTML
 app.mount("/static", StaticFiles(directory="static"), name="static")
@@ -19,12 +23,14 @@ async def start_recording():
     return {"message": "Recording started."}
 
 @app.post("/stop_recording")
-async def stop_recording(background_tasks: BackgroundTasks):
+async def stop_recording(request: Request, background_tasks: BackgroundTasks):
     recorder.stop_recording()
-    background_tasks.add_task(generate_summary_task)
-    return {"message": "Generated Transcriptions and Summary!!", "transcription": recorder.get_transcriptions()}
+    transcription = recorder.get_transcriptions()
+    meeting_details = await request.json()
+    background_tasks.add_task(generate_summary_task, meeting_details)
+    return {"message": "Generated Transcriptions and Summary!!", "transcription": transcription}
 
-async def generate_summary_task():
+async def generate_summary_task(meeting_details: dict):
     # Read the transcription text
     with open(transcription_file, 'r') as file:
         text = file.read()
@@ -34,6 +40,20 @@ async def generate_summary_task():
     agenda = result['agenda']
     summary = result['summary']
     resolution = result['resolution']
+    # Extract metadata
+    meeting_details.update({
+        "date": meeting_details.get("date"),
+        "time": meeting_details.get("time"),
+        "initiator": meeting_details.get("initiator"),
+        "verifier": meeting_details.get("verifier"),
+        "participants": meeting_details.get("participants"),
+        "transcription": text,
+        "agenda": agenda,
+        "summary": summary,
+        "resolution": resolution,
+        "timestamp": datetime.utcnow()
+    })
+    save_meeting_data(meeting_details)
     html_content = f"""
 <html>
 <head>
@@ -151,6 +171,15 @@ async def generate_document(request: Request):
 @app.get("/transcription")
 async def get_transcription():
     return {"transcription": recorder.get_transcriptions()}
+
+
+# def save_meeting_data(meeting_data: dict):
+#     try:
+#         collection.insert_one(meeting_data)
+#         print("Meeting details successfully saved to MongoDB.")
+#     except Exception as e:
+#         print(f"Error saving meeting details to MongoDB: {e}")
+
 
 @app.get("/summary")
 async def get_summary():

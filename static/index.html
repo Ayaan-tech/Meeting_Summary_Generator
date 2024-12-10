@@ -116,7 +116,22 @@
 
         async function stopRecording() {
             alert("Recording Stopped!!");
-            const response = await fetch('/stop_recording', { method: 'POST' });
+            const meetingDetails =
+            {
+                date: document.getElementById("meeting-date").value,
+                time: document.getElementById("meeting-time").value,
+                initiator: document.getElementById("initiator").value,
+                verifier: document.getElementById("verifier").value,
+                participants: document.getElementById("participants").value
+            };
+                 // Send the stop recording request to the backend with meeting details
+            const response = await fetch('/stop_recording', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(meetingDetails),  // Send meeting details
+                });            
             const result = await response.json();
             transcription = result.transcription;
             displayTranscription();
