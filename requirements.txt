@@ -11,3 +11,4 @@ fastapi
 python-docx
 uvicorn
 pymongo
+cloudinary

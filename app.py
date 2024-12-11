@@ -6,9 +6,18 @@ from summarizer import generate_summary
 from docx import Document
 from datetime import datetime
 from database import save_meeting_data
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 app = FastAPI()
 
+# config
+cloudinary.config(
+    cloud_name='df3o0herw',
+    api_key='379621268338952',
+    api_secret='vFYozAcP9RBBaHUiRmTBxU4GNWc'
+)
 # os.makedirs("artifacts", exist_ok=True)
 
 # Mount the static files directory to serve HTML
@@ -165,6 +174,22 @@ async def generate_document(request: Request):
     # Save the document
     doc_path = "artifacts/meeting_minutes.docx"
     doc.save(doc_path)
+     #uploading document to cloudinary
+    try:
+        response = cloudinary.uploader.upload(
+            doc_path,
+            resource_type='raw'  # Use 'raw' for non-image files like PDFs
+        )
+        print("File uploaded successfully!")
+        print(f"URL: {response['url']}")
+
+        meeting_details.update({
+            "document_url" : response['url']
+        }) 
+        save_meeting_data(meeting_details)
+        #return response['url']  # Returns the URL of the uploaded file
+    except Exception as e:
+        print(f"Error uploading to Cloudinary: {e}")
 
     return JSONResponse(content={"message": "Document generated successfully.", "file_path": doc_path})
 
