@@ -11,5 +11,3 @@ python-docx
 uvicorn
 pymongo
 cloudinary
-pyaudio
-pipwin

@@ -12,11 +12,6 @@ import cloudinary.api
 
 app = FastAPI()
 
-import pipwin
-
-# Install pyaudio using pipwin
-pipwin.install('pyaudio')
-
 # config
 cloudinary.config(
     cloud_name='df3o0herw',
@@ -26,7 +21,7 @@ cloudinary.config(
 # os.makedirs("artifacts", exist_ok=True)
 
 # Mount the static files directory to serve HTML
-app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/template", StaticFiles(directory="template"), name="template")
 
 transcription_file = "artifacts/generated_transcription.txt"
 recorder = Recorder(transcription_file)
@@ -228,7 +223,7 @@ async def download_document():
 
 @app.get("/")
 async def read_root():
-    return HTMLResponse(content=open("static/index.html").read(), status_code=200)
+    return HTMLResponse(content=open("template/index.html").read(), status_code=200)
 
 if __name__ == "__main__":
     import uvicorn
