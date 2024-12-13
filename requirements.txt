@@ -11,3 +11,4 @@ python-docx
 uvicorn
 pymongo
 cloudinary
+pyaudio
