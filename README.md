@@ -24,6 +24,7 @@ A smart tool to automate the transcription, summarization, and documentation of 
 ### Prerequisites
 - Python 3.12.3 installed
 - Access to MongoDB and a Cloudinary account
+  
 ### Steps
 1. Clone the repository:
     ```bash
