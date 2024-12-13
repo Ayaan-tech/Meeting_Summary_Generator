@@ -1,7 +1,7 @@
 
 # Meeting Summarizer
 
-A smart tool to automate the transcription, summarization, and documentation of meeting conversations. Meeting Summarizer leverages Whisper Automatic Speech Recognition (ASR) for real-time transcription and Mistral (an LLM) to generate concise summaries, including key details such as agendas and resolutions. Additionally, users can download a professionally formatted Word document with all the relevant meeting information.
+A smart tool to automate the transcription, summarization, and documentation of meeting conversations. Meeting Summarizer leverages **OpenAI's Whisper** Automatic Speech Recognition (ASR) model for real-time transcription and **Mistral** (an LLM) to **generate** concise summaries, including key details such as agendas and resolutions. Additionally, users can download a professionally formatted Word document with all the relevant meeting information.
 
 ##  Features
 - Real-time Transcription: Uses Whisper for accurate, real-time transcription of meeting conversations.
