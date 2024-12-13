@@ -12,6 +12,11 @@ import cloudinary.api
 
 app = FastAPI()
 
+import pipwin
+
+# Install pyaudio using pipwin
+pipwin.install('pyaudio')
+
 # config
 cloudinary.config(
     cloud_name='df3o0herw',
