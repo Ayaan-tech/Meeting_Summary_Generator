@@ -1,7 +1,7 @@
 
 # MeetMind
 
-A smart tool to automate the transcription, summarization, and documentation of meeting conversations. MeetMind uses **Whisper_mic** for real-time transcription of speech, which utilizes **OpenAI's Whisper** model under the hood. Whisper_mic is a Python package that simplifies live transcription by capturing microphone input and continuously transcribing it, making it ideal for real-time applications like meetings. The tool then employs **Mistral** (a **L**arge **L**anguage **M**odel) to generate concise summaries, including agendas and resolutions. Users can download a professionally formatted Word document containing all the relevant meeting details.
+MeetMind is an intelligent meeting tool that automates transcription, summarization, and documentation of conversations. It uses **Whisper_mic** for real-time transcription, which leverages **OpenAI's Whisper** model to capture and transcribe speech live via a microphone. The tool then uses **Mistral**, a powerful **Large Language Model**, to generate summaries, agendas, and resolutions from the transcriptions. Users can download a professionally formatted Word document containing all relevant meeting details, making it easy to keep records and stay organized.
 
 ##  Features
 - Real-time Transcription: Uses Whisper_mic for accurate, real-time transcription of meeting conversations.
