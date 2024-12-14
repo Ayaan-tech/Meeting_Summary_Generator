@@ -54,11 +54,11 @@ In essence, Whisper performs the transcription, and whisper_mic simplifies using
 
 ## Usage
 
-- Fill in the meeting details such as date, initiator, and participants.
-- Start Recording: Record audio using the integrated Whisper functionality.
-- Once the transcription is complete, a summary will be generated.
-- Review the summary, agenda, and resolutions.
-- Download the meeting details as a Word document.
+- Fill in the meeting details: Provide meeting-specific details such as date, initiator, and participants.
+- Start Recording: Record audio using the integrated Whisper_mic functionality, which allows real-time transcription using OpenAI's Whisper model with a microphone.
+- Transcription: As the audio is recorded, Whisper_mic utilizes Whisper to transcribe the speech in real time.
+- Generate Summary: Once the transcription is complete, a summary, agenda, and resolutions will be generated.
+- Review and Download: Review the summary, agenda, and resolutions. Then, download the meeting details as a professionally formatted Word document.
 
 ## Contributing
 
