@@ -6,19 +6,28 @@
     <title>Meeting Summarizer</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background: linear-gradient(135deg, #006d77, #83c5be);
+            color: #f1faee;
             margin: 0;
             padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+            max-width: 900px;
+            width: 65%;
+            margin: 40px;
+            padding: 10px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            color: #333333;
+            justify-content: center;
         }
 
         h1 {
@@ -28,45 +37,67 @@
         }
 
         label {
-            font-size: 1.1em;
-            margin-top: 10px;
             display: block;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #0b0606;
+            margin: 5px 0 5px;
+            text-align: left;
+            margin-left: 20px;
         }
 
         input[type="text"], input[type="date"], input[type="time"], input[type="number"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            width: 90%;
+            padding: 12px;
+            margin: 5px 0 10px;
+            border: 1px solid #cccccc;
+            border-radius: 8px;
             font-size: 1em;
+            transition: border-color 0.3s ease;
         }
 
+        input:focus {
+            border-color: #05668d;
+            outline: none;
+            box-shadow: 0 0 8px rgba(5, 102, 141, 0.3);
+        }
         button {
-            display: inline-block;
-            background-color: #4CAF50;
-            color: white;
+            background: linear-gradient(135deg, #118ab2, #06d6a0);
+            color: #fff;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px 5px;
-            border-radius: 5px;
+            border-radius: 10px;
+            padding: 12px 12px;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         button:hover {
-            background-color: #45a049;
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
         }
         pre {
             background-color: #f4f4f4;
+            color: #555555;
             padding: 15px;
-            font-size: 16px;
-            border-radius: 5px;
-            white-space: pre-wrap; /* Allow wrapping */
-            word-wrap: break-word;
+            font-size: 1em;
+            border-radius: 8px;
             border: 1px solid #ddd;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            text-align: left;
+            font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            min-height: 100px;
             margin-top: 10px;
         }
 
@@ -78,31 +109,36 @@
 </head>
 <body>
     <div class="container">
-        <h1>Meeting Summarizer</h1>
-
-        <label for="meeting-date">Date of the meeting:</label>
+        <h1>📋 Meeting Summarizer</h1>
+        <h2 style="text-align: center; font-size: 19px; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-weight: 600; color: #004781; margin-top: 20px;">
+            Your efficient meeting companion – capture, summarize, and share in seconds!
+        </h2>
+        <!-- Input Section -->
+        <label for="meeting-date"> 📅 Date of the meeting:</label>
         <input type="date" id="meeting-date" required>
 
-        <label for="meeting-time">Time of the meeting:</label>
+        <label for="meeting-time">⏰ Time of the meeting:</label>
         <input type="time" id="meeting-time" required>
 
-        <label for="initiator">Who initiated the meeting:</label>
-        <input type="text" id="initiator" required>
+        <label for="initiator">🙋‍♂️ Who initiated the meeting:</label>
+        <input type="text" id="initiator" placeholder="Enter the name" required>
 
-        <label for="verifier">Minutes verified by:</label>
-        <input type="text" id="verifier" required>
+        <label for="verifier">🖋️ Minutes verified by:</label>
+        <input type="text" id="verifier" placeholder="Enter the name" required>
 
-        <label for="participants">Number of participants:</label>
-        <input type="number" id="participants" required>
+        <label for="participants">👥 Number of participants:</label>
+        <input type="number" id="participants" placeholder="Enter number of participants" required>
 
-        <div>
-            <button onclick="startRecording()">Start Recording</button>
-            <button onclick="stopRecording()">Stop Recording</button>
-            <button onclick="summarizer()">Summarize</button>
-            <button onclick="generateDocument()">Generate Document</button>
-            <h2>Transcription</h2>
-            <pre id="transcription">Transcription will appear here...</pre> 
+        <div class="button-group">
+            <button onclick="startRecording()">🎙️ Start Recording</button>
+            <button onclick="stopRecording()">⏹️ Stop Recording</button>
+            <button onclick="summarizer()">📝 Summarize</button>
+            <button onclick="generateDocument()">📂 Generate Document</button>
         </div>
+        <h2>🗒️ Transcription</h2>
+        <pre id="transcription">Transcription will appear here...</pre>
+
+
     </div>
 
     <script>
@@ -179,3 +215,4 @@
     </script>
 </body>
 </html>
+
