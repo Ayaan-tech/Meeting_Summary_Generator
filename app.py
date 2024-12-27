@@ -139,7 +139,7 @@ async def generate_summary_task(meeting_details: dict):
     </html>
         """
         
-        # Save the generated HTML content to a file
+        
         with open("artifacts/generated_summary.html", 'w', encoding='utf-8') as summary_file:
             summary_file.write(html_content)
 
@@ -221,8 +221,6 @@ async def download_document():
     except Exception as e:
         handle_exception(e, logger)
         return {"error": str(e)}
-
-
 
 @app.get("/")
 async def read_root():
